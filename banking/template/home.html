@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Banking Website</title>
+     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            {% if user.is_authenticated %}
+				<li> hello {{user.username}}</li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+				{% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+
+                <li><a href="{% url 'register' %}">Create a account</a></li>
+			{% endif %}
+
+
+                <div class="dropdown">
+                  <button class="dropbtn">Branch</button>
+                  <div class="dropdown-content">
+                      <a href="https://en.wikipedia.org/wiki/Palakkad">Palakkad</a>
+                    <a href="https://en.wikipedia.org/wiki/Malapuram">Malapuram</a>
+                    <a href="https://en.wikipedia.org/wiki/Calicut">Calicut</a>
+                    <a href="https://en.wikipedia.org/wiki/Idukki">Idukki</a>
+                    <a href="https://en.wikipedia.org/wiki/Wayanad">Wayanad</a>
+
+                  </div>
+                </div>
+
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Home Page -->
+<div id="home-page">
+
+            <h1>Welcome to our Banking Website Please log in</h1>
+               <button> <li><a class="login-button"  href="{% url 'login' %}">LOGIN</a></li></button>
+        </div>
+
+    {% if user.is_authenticated %}
+        <div id="home-page">
+
+            <h1>Welcome to our Banking Website</h1>
+               <button> <li><a class="login-button"  href="{% url 'show_application_form' %}">Registration Form</a></li></button>
+        </div>
+    {% endif %}
+
+
+
+</body>
+</html>

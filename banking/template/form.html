@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bank Account Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        select, input[type="text"], input[type="date"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .checkbox-group {
+            margin-top: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Bank Account Application Form</h2>
+        <form action="{% url 'show_application_form' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <input type="radio" id="male" name="gender" value="Male"> Male
+                <input type="radio" id="female" name="gender" value="Female"> Female
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="text" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email ID:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <textarea id="address" name="address" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="district">District:</label>
+                <select id="district" name="district" required>
+                    {% for pdt in links %}
+                        <option href="{{pdt.get_url}}">{{pdt.name}}</option>
+                        <li><a class="dropdown-item" href="{{pdt.get_url}}">{{pdt.name}}</a></li>
+                    {% endfor %}
+
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="branch">Branch:</label>
+                <select id="branch" name="branch" required>
+                     {% for i in subbranch %}
+                        <option href="{{pdt.get_url}}">{{i.name}}</option>
+                        <li><a class="dropdown-item" href="{{pdt.get_url}}">{{i.name}}</a></li>
+                     {% endfor %}
+
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="account-type">Account Type:</label>
+                <select id="account-type" name="account-type" required>
+                    <option value="Savings Account">Savings Account</option>
+                    <option value="Current Account">Current Account</option>
+
+                </select>
+            </div>
+            <div class="form-group checkbox-group">
+                <label>Materials Provided:</label><br>
+                <input type="checkbox" id="debit-card" name="debit-card" value="Debit Card"> Debit Card
+                <input type="checkbox" id="credit-card" name="credit-card" value="Credit Card"> Credit Card
+                <input type="checkbox" id="cheque-book" name="cheque-book" value="Cheque Book"> Cheque Book
+
+            </div>
+            <button type="submit">Submit & Logout</button>
+            <a class="btn btn-warning" href="{% url 'home' %}">add data</a>
+        </form>
+    </div>
+</body>
+</html>
